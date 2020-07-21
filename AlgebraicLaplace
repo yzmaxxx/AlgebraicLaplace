@@ -1,0 +1,175 @@
+from sympy import *
+
+
+class Laplace:
+     def __init__(self, a, b):
+          self.a = a
+          self.b =b
+     def __getitem__(self, item):
+          return self.a[item]
+
+     def eat(self):
+          s = Symbol('s')
+          return 1/(s - self.a)
+     def tn(self):
+          s = Symbol('s')
+          return factorial(self.a)/ s**(self.a +1)
+     def sin(self):
+          s = Symbol('s')
+          return s / ((s**2) + self.a**2 )
+     def sinh(self):
+          s = Symbol('s')
+          return self.a / (s**2 - self.a**2)
+     def cosh(self):
+          s = Symbol('s')
+          return s / (s**2 - self.a**2)
+     def cos(self):
+          s = Symbol('s')
+          return s / ((s**2) - self.a**2)
+     def eatsin(self):
+          s = Symbol('s')
+          return self.b / (s - self.a)
+     def eatcos(self):
+         s = Symbol('s')
+         expr = s-self.a
+         return (s - self.a) / (expr **2 + self.b**2)
+     def tneat(self):
+         s = Symbol('s')
+         expr = s-self.a
+         return (factorial(self.b)) / (expr**(self.b +1))
+     def Uc(self):
+         s = Symbol('s')
+         e = Symbol('e')
+         return e**-self.a*s /s
+
+     def ectf(self):
+          s = Symbol('s')
+
+          F = Function('F')
+          return  F(s - self.a)
+     def one(self):
+          s = Symbol('s')
+          return self.a / s
+
+     def sigma(self):
+          s = Symbol('s')
+          e = Symbol('e')
+          return e ** self.a *s
+
+
+
+
+#dönüşüme uğrayacak ifadeler küçük harfle ve karakterler yanyana girilmeli#
+def split(word):
+     return [char for char in word]
+print("""
+
+*****************************************
+Cebirsel Laplace dönüşümü (Elementary Laplace Transforms)
+Dönüşüme uğrayacak ifadeler küçük harfle ve karakterler yanyana (çarpım operasyonsuz) girilmelidir
+örnek:
+e**at ---------> eat
+t**-n ----------> tn
+sigma = &
+fonksiyon = 'f'
+*****************************************
+""")
+
+
+count = 100
+while count>0:
+
+    word = input('f:')
+
+
+
+    if  len(word)>3 :
+        if split(word)[3 or 2] == 'f':
+            a = int(split(word)[1])
+            b =0
+            f= Laplace(a,b)
+            print(f.ectf())
+        if split(word)[0] == 'e' and split(word)[3] == 'c':
+            a = int(split(word)[1])
+            b = int(split(word)[7])
+            f = Laplace(a, b)
+
+            print(f.eatcos())
+
+        if split(word)[0] == 'e' and split(word)[3] == 's':
+            a = int(split(word)[1])
+            b = int(split(word)[7])
+            f = Laplace(a, b)
+
+            print(f.eatsin())
+
+        if split(word)[0] == 't' and split(word)[2] == 'e':
+            a = int(split(word)[3])
+            b = int(split(word)[1])
+            f = Laplace(a,b)
+            print(f.tneat())
+
+        if split(word)[0] == '&':
+            a = int(split(word)[4])
+            b = 0
+            f = Laplace(a, b)
+            print(f.sigma())
+        if split(word)[0] == 's' and split(word)[3] == '(':
+            a = int(split(word)[4])
+            b = 0
+            f = Laplace(a,b)
+            print(f.sin())
+
+        if split(word)[0] == 's' and split(word)[4] == '(':
+            a = int(split(word)[5])
+            b = 0
+            f = Laplace(a,b)
+            print(f.sinh())
+
+        if split(word)[0] == 'c' and split(word)[3] == '(':
+            a = int(split(word)[3])
+            b = 0
+            f = Laplace(a,b)
+            print(f.cos())
+
+        if split(word)[0] == 'c' and split(word)[4] == '(':
+            a = int(split(word)[5])
+            b = 0
+            f = Laplace(a,b)
+            print(f.cosh())
+
+    else:
+        if split(word)[0] == 'e' :
+            a = int(split(word)[1])
+            b = 0
+            f = Laplace(a,b)
+            print(f.eat())
+
+
+
+        if split(word)[0] == 't':
+            a = int(split(word)[1])
+            b = 0
+            f = Laplace(a,b)
+            print(f.tn())
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
